@@ -1,0 +1,69 @@
+﻿@model ProductFormServiceModel
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <h2 class="text-center mt-4">@ViewBag.Title</h2>
+
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Name">Name</label>
+                <input asp-for="Name" class="form-control" placeholder="">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="CategoryId">Category</label>
+                    <select asp-for="CategoryId" class="form-control">
+                        @foreach (var category in Model.Categories)
+                        {
+                            <option value="@category.Id">@category.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="Price">Price</label>
+                    <input asp-for="Price" class="form-control" placeholder="">
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label class="col-form-label">Quantity - Small Size:</label>
+                    <input asp-for="QuantityS" class="form-control">
+                    <span asp-validation-for="QuantityS" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="col-form-label">Quantity - Medium Size:</label>
+                    <input asp-for="QuantityM" class="form-control">
+                    <span asp-validation-for="QuantityM" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="col-form-label">Quantity - Large Size:</label>
+                    <input asp-for="QuantityL" class="form-control">
+                    <span asp-validation-for="QuantityL" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description">Description</label>
+                <textarea asp-for="Description" rows="4" class="form-control" placeholder=""></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl">Image URL</label>
+                <input asp-for="ImageUrl" class="form-control" placeholder="">
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+
+            <div class="text-center">
+                <input class="btn btn-success btn-lg mt-3" id="save-btn" type="submit" value="Save" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .heading-margin {
+        margin-top: 40px;
+    }
+</style>

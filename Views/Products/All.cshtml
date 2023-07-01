@@ -1,0 +1,62 @@
+﻿@model AllProductsQueryModel
+
+@{
+    ViewBag.Title = "All Products";
+}
+
+<form method="get" class="mb-3">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="input-group">
+                <label asp-for="SearchTerm" class="input-group-text">Search</label>
+                <input asp-for="SearchTerm" class="form-control" placeholder="">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="input-group">
+                <label asp-for="CategoryId" class="input-group-text">Category</label>
+                <select asp-for="CategoryId" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="input-group">
+                <label asp-for="Sorting" class="input-group-text">Sort By</label>
+                <select asp-for="Sorting" class="form-control">
+                    <option value="1">Newest</option>
+                    <option value="2">Oldest</option>
+                    <option value="3">Price (Descending)</option>
+                    <option value="4">Price (Ascending)</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
+
+<div class="row">
+    @foreach (var product in Model.Products)
+    {
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img class="card-img-top" width="250" height="330" src="@product.ImageUrl" alt="@product.Name - @product.Price (@product.CategoryName) ">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-center">@product.Name - @product.Price.ToString("0.00")$</h5>
+                    <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">View More</a>
+                    @if (User.IsAdmin())
+                    {
+                        <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-warning">Edit</a>
+                        <a asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Delete</a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
